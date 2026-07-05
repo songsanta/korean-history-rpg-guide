@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한국사 전사 배틀 RPG · 바이브코딩 교재</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4f9f4;
+      --ink: #263f2e;
+      --leaf: #3e8e5a;
+      --sun: #ffc531;
+      --sky: #ddecff;
+      --berry: #e4633f;
+      --card: #ffffff;
+      --line: #b9d6c2;
+      --shadow: rgba(62, 142, 90, .18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Gowun Dodum", sans-serif;
+      background: var(--paper);
+      background-image: radial-gradient(var(--line) 1.1px, transparent 1.1px);
+      background-size: 26px 26px;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    h1, h2, h3, .badge, .station b, .map-title, .button {
+      font-family: "Jua", sans-serif;
+      font-weight: 400;
+    }
+
+    header {
+      position: relative;
+      overflow: hidden;
+      background: var(--leaf);
+      color: white;
+      text-align: center;
+      padding: 52px 20px 48px;
+      border-radius: 0 0 34px 34px;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 16px;
+      background: radial-gradient(circle at 10px -6px, transparent 12px, var(--paper) 13px);
+      background-size: 24px 20px;
+    }
+
+    .kicker {
+      display: inline-block;
+      background: var(--sun);
+      color: var(--ink);
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      font-family: "Jua", sans-serif;
+      font-size: 16px;
+    }
+
+    h1 {
+      font-size: clamp(31px, 5vw, 48px);
+      line-height: 1.28;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, .12);
+    }
+
+    header p {
+      max-width: 760px;
+      margin: 14px auto 0;
+      opacity: .96;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    .map {
+      position: relative;
+      z-index: 2;
+      background: var(--card);
+      border: 3px solid var(--leaf);
+      border-radius: 26px;
+      margin: -26px auto 44px;
+      padding: 28px 22px 30px;
+      box-shadow: 0 8px 0 var(--shadow);
+    }
+
+    .map-title {
+      text-align: center;
+      font-size: 23px;
+      color: var(--leaf);
+      margin-bottom: 22px;
+    }
+
+    .stations {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .station {
+      position: relative;
+      flex: 1 1 160px;
+      max-width: 205px;
+      background: #fbfdf9;
+      border: 2.5px dashed var(--line);
+      border-radius: 18px;
+      text-align: center;
+      padding: 16px 10px 14px;
+    }
+
+    .station .emoji {
+      display: block;
+      font-size: 34px;
+    }
+
+    .station b {
+      display: block;
+      margin-top: 6px;
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .station small {
+      display: block;
+      margin-top: 2px;
+      font-size: 13px;
+      color: #5b7563;
+      line-height: 1.5;
+    }
+
+    .station .no {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: var(--sun);
+      color: var(--ink);
+      font-family: "Jua", sans-serif;
+      line-height: 25px;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, .12);
+    }
+
+    .arrow {
+      align-self: center;
+      color: var(--leaf);
+      font-size: 22px;
+      padding: 0 2px;
+    }
+
+    section { margin: 38px 0; }
+
+    .step-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      background: var(--berry);
+      color: #fff;
+      padding: 5px 13px;
+      border-radius: 999px;
+      font-size: 15px;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, .11);
+    }
+
+    h2 {
+      font-size: clamp(23px, 4vw, 32px);
+      color: var(--leaf);
+      line-height: 1.3;
+    }
+
+    .card {
+      background: var(--card);
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 5px 0 rgba(185, 214, 194, .55);
+    }
+
+    .goal {
+      background: var(--sky);
+      border-left: 8px solid #73a7df;
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .todo {
+      padding-left: 24px;
+    }
+
+    .todo li + li {
+      margin-top: 9px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--sun);
+      border: 2px solid rgba(0, 0, 0, .08);
+      box-shadow: 0 5px 0 rgba(0, 0, 0, .12);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 rgba(0, 0, 0, .12);
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--leaf);
+      border-color: var(--leaf);
+    }
+
+    .word {
+      margin-top: 14px;
+      background: #fbfdf9;
+      border: 2px dashed var(--line);
+      border-radius: 16px;
+      padding: 15px 16px;
+      color: #46624e;
+    }
+
+    .loop {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .node {
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 10px;
+      text-align: center;
+      min-height: 132px;
+    }
+
+    .node b {
+      display: block;
+      font-family: "Jua", sans-serif;
+      color: var(--leaf);
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .check label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .check label:last-child { border-bottom: 0; }
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 6px;
+      accent-color: var(--leaf);
+    }
+
+    footer {
+      text-align: center;
+      color: #5b7563;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 720px) {
+      body { font-size: 16px; }
+      header { padding-top: 40px; }
+      .arrow { display: none; }
+      .step-head { align-items: flex-start; }
+      .loop { grid-template-columns: 1fr; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="kicker">바이브코딩 수업 교재 · 한국사 게임 만들기</span>
+    <h1>한국사 전사 배틀 RPG를<br>GitHub Pages에 올려요</h1>
+    <p>원래 HTML 게임 파일을 바탕으로, 수업용 안내 페이지와 실행 페이지를 함께 담은 작은 웹 프로그램입니다.</p>
+  </header>
+
+  <div class="wrap">
+    <div class="map">
+      <div class="map-title">오늘의 모험 지도</div>
+      <div class="stations">
+        <div class="station"><span class="no">1</span><span class="emoji">🎮</span><b>게임 확인</b><small>한국사 퀴즈와<br>전투 규칙 살펴보기</small></div>
+        <div class="arrow">➡</div>
+        <div class="station"><span class="no">2</span><span class="emoji">🧭</span><b>교재 화면</b><small>친절한 안내와<br>체크리스트 만들기</small></div>
+        <div class="arrow">➡</div>
+        <div class="station"><span class="no">3</span><span class="emoji">📦</span><b>창고 준비</b><small>GitHub 저장소에<br>파일 넣기</small></div>
+        <div class="arrow">➡</div>
+        <div class="station"><span class="no">4</span><span class="emoji">🌍</span><b>인터넷 공개</b><small>GitHub Pages로<br>주소 만들기</small></div>
+      </div>
+    </div>
+
+    <section>
+      <div class="step-head"><span class="badge">바로 실행</span><h2>한국사 RPG를 먼저 플레이해요</h2></div>
+      <div class="card">
+        <div class="goal">목표: 퀴즈를 맞혀 공격권을 얻고, 적과 보스를 물리치며 한국사 개념을 복습합니다.</div>
+        <p>게임은 원본 HTML을 그대로 살려 별도 페이지로 넣었습니다. 수업에서는 먼저 한 번 플레이한 뒤, “어떤 기능을 더 넣고 싶은지”를 말로 적어보면 좋습니다.</p>
+        <div class="button-row">
+          <a class="button" href="game.html">게임 시작하기</a>
+          <a class="button secondary" href="#mission">수업 미션 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="mission">
+      <div class="step-head"><span class="badge">1단계</span><h2>Codex에게 부탁할 말을 정해요</h2></div>
+      <div class="card">
+        <ol class="todo">
+          <li>게임 제목, 색깔, 캐릭터 이름처럼 눈에 보이는 부분부터 바꿔 봅니다.</li>
+          <li>퀴즈 문제를 더 추가하거나, 틀렸을 때 나오는 설명을 친절하게 바꿉니다.</li>
+          <li>친구가 휴대폰으로 열어도 잘 보이는지 확인합니다.</li>
+        </ol>
+        <div class="word"><b>예시 부탁:</b> “게임 첫 화면을 초등학생도 이해하기 쉽게 바꾸고, 시작 버튼 아래에 조작 방법을 넣어 줘.”</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="step-head"><span class="badge">2단계</span><h2>GitHub 창고에 넣을 파일</h2></div>
+      <div class="card">
+        <ol class="todo">
+          <li><b>index.html</b>: 지금 보고 있는 교재형 첫 화면입니다.</li>
+          <li><b>game.html</b>: 원래 파일을 바탕으로 넣은 한국사 전사 배틀 RPG입니다.</li>
+          <li><b>README.md</b>: GitHub에서 프로젝트 설명으로 보이는 안내문입니다.</li>
+        </ol>
+        <div class="word">GitHub Pages에서는 보통 <b>index.html</b>이 첫 화면으로 열립니다. 그래서 교재 화면을 첫 화면으로 두고, 게임은 버튼으로 들어가게 만들었습니다.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="step-head"><span class="badge">3단계</span><h2>인터넷에 공개하기</h2></div>
+      <div class="card">
+        <ol class="todo">
+          <li>GitHub에 새 저장소를 만들고 이 폴더의 파일을 올립니다.</li>
+          <li>저장소의 <b>Settings</b> → <b>Pages</b>로 들어갑니다.</li>
+          <li><b>Source</b>를 <b>GitHub Actions</b>로 선택합니다.</li>
+          <li>잠시 기다리면 <b>https://아이디.github.io/저장소이름/</b> 주소가 생깁니다.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="step-head"><span class="badge">연습</span><h2>말하며 키우는 바이브코딩</h2></div>
+      <div class="loop">
+        <div class="node"><b>상상하기</b>게임에 넣고 싶은 기능을 떠올려요.</div>
+        <div class="node"><b>말하기</b>Codex에게 자연스러운 말로 부탁해요.</div>
+        <div class="node"><b>확인하기</b>미리보기에서 직접 눌러 봐요.</div>
+        <div class="node"><b>공개하기</b>마음에 들면 GitHub에 올려요.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="step-head"><span class="badge">체크</span><h2>완성 전 확인표</h2></div>
+      <div class="card check">
+        <label><input type="checkbox"><span>첫 화면에서 게임 시작 버튼이 보인다.</span></label>
+        <label><input type="checkbox"><span>게임 화면에서 퀴즈 풀기 버튼과 조작 버튼이 작동한다.</span></label>
+        <label><input type="checkbox"><span>휴대폰 화면에서도 글자가 겹치지 않는다.</span></label>
+        <label><input type="checkbox"><span>GitHub 저장소에 index.html, game.html, README.md가 올라갔다.</span></label>
+        <label><input type="checkbox"><span>GitHub Pages 주소로 접속했을 때 첫 화면이 열린다.</span></label>
+      </div>
+    </section>
+
+    <footer>
+      만든 파일: index.html + game.html + README.md · 2026년 7월 5일 기준
+    </footer>
+  </div>
+</body>
+</html>
